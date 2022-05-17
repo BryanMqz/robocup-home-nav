@@ -1,8 +1,8 @@
 
 double codoR = 0; // M1
 
-int stepsInitC = 2700; // NEEDS TEST
-double stepPerRadC = stepsInitC / pi;
+int stepsInitC = 13000; // NEEDS TEST
+double stepPerRadC = stepsInitC / (pi/2.0);
 
 // dir = 0 is NEEDS TEST
 void goToOriginCodo(){
