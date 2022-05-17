@@ -15,34 +15,30 @@
 #include "elevador.h"
 #include "munecaH.h"
 #include "codo.h"
+#include "servos.h"
 
 ros::NodeHandle  nh;
-
-// ARM
-double basePinzaJointV = 0; //S3
-
-//GRIPPER
-
-double pinzaGarraDV = 0; // S2
-double pinzaGarraIV = 0; // S1
-
-// NECK
-
-double neckJointV = 0; // S7
-
 
 void rosCallback(const sensor_msgs::JointState& cmd_msg){
   moveTorso(cmd_msg.position[4]);
   moveMunecaH(cmd_msg.position[7]);
   moveCodo(cmd_msg.position[6]);
+
+  moveMunecaV(cmd_msg.position[8]);
+  moveGarraI(cmd_msg.position[10]);
+  moveGarraD(cmd_msg.position[9]);
+  
 }
 
 ros::Subscriber<sensor_msgs::JointState> sub("joint_states", rosCallback);
 
 void goToOrigin(){
   goToOriginTorso();
-  goToOriginCodo();
   goToOriginMunecaH();
+  goToOriginCodo();
+  munecaV.write(munecaVG);
+  garraI.write(garraIG);
+  garraD.write(garraDG);
 }
 
 void setup() {
@@ -59,4 +55,5 @@ void setup() {
 
 void loop() {
   //nh.spinOnce();
+  
 }
